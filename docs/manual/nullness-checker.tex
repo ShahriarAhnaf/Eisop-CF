@@ -4,7 +4,7 @@
 If the Nullness Checker issues no warnings for a given program, then
 running that program will never throw a null pointer exception.  In
 other words, the Nullness Checker prevents all \<NullPointerException>s.
-See Section~\ref{nullness-checks} for more details about
+See Section~\ref{nullness-checker-guarantee} for more details about
 the guarantee and what is checked.
 
 The most important annotations supported by the Nullness Checker are
@@ -31,7 +31,7 @@ Their type hierarchies are completely independent, but they work together
 to provide precise nullness checking.
 
 
-\sectionAndLabel{What the Nullness Checker guarantees}{nullness-checks}
+\sectionAndLabel{What the Nullness Checker guarantees}{nullness-checker-guarantee}
 
 % TODO: The actual guarantee is a bit more subtle than this; put it here
 % rather than this more imprecise one.
@@ -805,7 +805,7 @@ command-line argument
 \subsectionAndLabel{Conservative nullness annotations on the JDK}{nullness-jdk-conservative}
 
 The JDK contains nullness annotations that preserve the Nullness Checker's
-guarantee (see Section~\ref{nullness-checks}) that your program will not
+guarantee (see Section~\ref{nullness-checker-guarantee}) that your program will not
 crash with a \<NullPointerException>.  In some cases, a formal parameter
 may be null in some circumstances, but must be non-null in other
 circumstances, and those circumstances are not expressible using the
@@ -2242,7 +2242,7 @@ warning: [initialization.static.field.uninitialized] static field myStaticField 
         1 warning
 \end{verbatim}
 This warning is issued when a static field is not initialized.  The Initialization Checker requires that all static fields be initialized for the Nullness Checker to guarantee that the null pointer exception does not happen.
-Find out more on what the nullness checker guarantees in section \ref{nullness-checks}.
+Find out more on what the Nullness Checker guarantees in section \ref{nullness-checker-guarantee}.
 
 \subsectionAndLabel{Suppressing warnings}{initialization-checking-suppressing-warnings}
 

@@ -517,21 +517,19 @@ In a message like this:
 \noindent
 the square brackets enclose the upper and lower bounds that the type parameter needs to be within.
 
-\subsectionAndLabel{What do redundant null check warnings mean?}{faq-redundant-null-check-warnings}
+\subsectionAndLabel{What do redundant null warnings mean?}{faq-redundant-null-warnings}
 
-\item
-  \textbf{Redundant null check warnings} (e.g., \texttt{[nulltest.redundant]}) indicate that you are performing a null check on a value that the type system has already determined cannot be null. For example:
-  \begin{Verbatim}
-    warning: [nulltest.redundant] redundant test against null; "some_var" is non-null
-            if (some_var != null) {
-  \end{Verbatim}
-  These warnings help you clean up unnecessary runtime null checks in your code. Since the type system has already verified that the value cannot be null, the null check is redundant and can be removed.
-\end{itemize}
+Redundant null check warnings(e.g., \texttt{[nulltest.redundant]}) indicate that you are performing a null check on a value that the type system has already determined cannot be null. For example:
+\begin{Verbatim}
+  warning: [nulltest.redundant] redundant test against null; "some_var" is non-null
+          if (some_var != null) {
+\end{Verbatim}
+These warnings help you clean up unnecessary runtime null checks in your code. Since the type system has already verified that the value cannot be null, the null check is redundant and can be removed.
 
-To fix these warnings:
+To fix this warning:
 \begin{itemize}
 \item
-  For redundant null check warnings, you can safely remove the null check since the type system has already verified the value cannot be null. Find out more on what the nullness checker guarantees in section \ref{nullness-checks}.
+  you can safely remove the null check since the type system has already verified that the value cannot be null before the runtime check is performed. Find out more on what the nullness checker guarantees in section \ref{nullness-checker-guarantee}.
 \end{itemize}
 
 Note that if you want to treat these warnings as errors (which is common in CI/CD pipelines), you can use the \texttt{-Werror} flag. However, be aware that this will cause compilation to fail if any warnings are present.
