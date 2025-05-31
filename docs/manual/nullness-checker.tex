@@ -77,7 +77,7 @@ This example illustrates the programming errors that the checker detects:
   ...
   obj.toString()         // checker warning:  dereference might cause null pointer exception
   nnobj = obj;           // checker warning:  nnobj may become null
-  if (nnobj == null)     // checker warning:  redundant test
+  if (nnobj == null)     // checker warning:  redundant test against null
 \end{Verbatim}
 
 Parameter passing and return values are checked analogously to assignments.
@@ -2233,6 +2233,16 @@ initialization was actually complete, then the receiver should have type
 \<@UnknownInitialization>, which is the supertype of
 \<@UnknownInitialization> and \<@UnderInitialization>.
 \end{sloppypar}
+
+\subsubsectionAndLabel{``static field instrumentation \ldots not initialized''}{static-initialization-warnings}
+\begin{verbatim}
+warning: [initialization.static.field.uninitialized] static field myStaticField not initialized
+        private static volatile myClass myStaticField;
+                                ^
+        1 warning
+\end{verbatim}
+This warning is issued when a static field is not initialized.  The Initialization Checker requires that all static fields be initialized for the Nullness Checker to guarantee that the null pointer exception does not happen.
+Find out more on what the nullness checker guarantees in section \ref{nullness-checks}.
 
 \subsectionAndLabel{Suppressing warnings}{initialization-checking-suppressing-warnings}
 
