@@ -45,6 +45,7 @@ import org.checkerframework.framework.type.typeannotator.TypeAnnotator;
 import org.checkerframework.framework.util.QualifierKind;
 import org.checkerframework.javacutil.AnnotationBuilder;
 import org.checkerframework.javacutil.AnnotationUtils;
+import org.checkerframework.javacutil.BugInCF;
 import org.checkerframework.javacutil.ElementUtils;
 import org.checkerframework.javacutil.TreePathUtil;
 import org.checkerframework.javacutil.TreeUtils;
@@ -126,7 +127,15 @@ public abstract class InitializationParentAnnotatedTypeFactory
         INITIALIZED = AnnotationBuilder.fromClass(elements, Initialized.class);
         UNDER_INITALIZATION = AnnotationBuilder.fromClass(elements, UnderInitialization.class);
         NOT_ONLY_INITIALIZED = AnnotationBuilder.fromClass(elements, NotOnlyInitialized.class);
-        POLY_INITIALIZED = AnnotationBuilder.fromClass(elements, PolyInitialized.class);
+        try {
+            POLY_INITIALIZED = AnnotationBuilder.fromClass(elements, PolyInitialized.class);
+        } catch (Exception e) {
+            // Class mismatch found
+            throw new BugInCF(
+                    "PolyInitialized annotation not found. "
+                            + "Please check that the PolyInitialized annotation is present in the classpath for qualifiers.",
+                    e.getMessage());
+        }
         FBCBOTTOM = AnnotationBuilder.fromClass(elements, FBCBottom.class);
 
         objectTypeMirror =

@@ -1311,10 +1311,14 @@ public final class TreeUtils {
         List<ExecutableElement> methods = getMethods(typeName, methodName, params, env);
         if (methods.size() == 1) {
             return methods.get(0);
+        } else {
+            // Needs to be handled by the calling method
+            return null;
         }
-        throw new BugInCF(
-                "TreeUtils.getMethod(%s, %s, %d): expected 1 match, found %d: %s",
-                typeName, methodName, params, methods.size(), methods);
+        // used to be an exception here, but that was too strict
+        // throw new BugInCF(
+        //         "TreeUtils.getMethod(%s, %s, %d): expected 1 moment, found %d: %s",
+        //         typeName, methodName, params, methods.size(), methods);
     }
 
     /**

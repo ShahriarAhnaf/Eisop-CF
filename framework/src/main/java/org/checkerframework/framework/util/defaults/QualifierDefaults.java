@@ -628,9 +628,12 @@ public class QualifierDefaults {
                             defaultQualifierLocationsElement,
                             TypeUseLocation.class,
                             defaultQualifierValueDefault);
-            boolean applyToSubpackages =
-                    AnnotationUtils.getElementValue(
-                            dq, defaultQualifierApplyToSubpackagesElement, Boolean.class, true);
+            boolean applyToSubpackages = true; // default Value
+            if (defaultQualifierApplyToSubpackagesElement != null) {
+                applyToSubpackages =
+                        AnnotationUtils.getElementValue(
+                                dq, defaultQualifierApplyToSubpackagesElement, Boolean.class, true);
+            }
 
             DefaultSet ret = new DefaultSet();
             for (TypeUseLocation loc : locations) {
